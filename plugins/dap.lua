@@ -1,7 +1,7 @@
 return {
-"mfussenegger/nvim-dap",
+  "mfussenegger/nvim-dap",
   dependencies = {
-    { "mxsdev/nvim-dap-vscode-js", opts = { debugger_cmd = { "js-debug-adapter" }, adapters = { "pwa-node" } } },
+    { "mxsdev/nvim-dap-vscode-js",       opts = { debugger_cmd = { "js-debug-adapter" }, adapters = { "pwa-node" } } },
     { "theHamsta/nvim-dap-virtual-text", config = true },
   },
   config = function()
@@ -43,6 +43,30 @@ return {
         },
       },
       attach_node,
+    }
+
+    dap.configurations.codelldb = {
+      {
+        type = "lldb",
+        request = "launch",
+        name = "Launch file",
+        program = "${file}",
+        cwd = "${workspaceFolder}",
+        sourceLanguages = { "c", "cpp", "rust" },
+      },
+    }
+
+    dap.configurations.cpp = {
+      {
+        name = "Launch file",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+      },
     }
   end,
 }
