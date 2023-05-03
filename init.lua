@@ -50,6 +50,16 @@ return {
     servers = {
       -- "pyright"
     },
+    dependencies = {
+      {
+      "SmiteshP/nvim-navbuddy",
+      dependencies = {
+        "SmiteshP/nvim-navic",
+        "MunifTanjim/nui.nvim"
+      },
+      opts = { lsp = { auto_attach = true } }
+      }
+  }
   },
   -- Configure require("lazy").setup() options
   lazy = {
